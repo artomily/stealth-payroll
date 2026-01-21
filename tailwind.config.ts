@@ -57,9 +57,9 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        solana: {
-          purple: "hsl(var(--solana-purple))",
-          teal: "hsl(var(--solana-teal))",
+        stealth: {
+          green: "hsl(var(--stealth-green))",
+          "green-dark": "hsl(var(--stealth-green-dark))",
         },
       },
       borderRadius: {
