@@ -21,6 +21,7 @@ import {
   User,
   FileText,
   Lock,
+  Shield,
 } from 'lucide-react';
 import { toast } from 'sonner';
 

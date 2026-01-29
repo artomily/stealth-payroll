@@ -11,8 +11,7 @@ export function Header() {
   
   const navItems = [
     { href: '/', label: 'Home', icon: Shield },
-    { href: '/employer', label: 'Employer', icon: Briefcase },
-    { href: '/employee', label: 'Employee', icon: User },
+    { href: '/dashboard', label: 'Dashboard', icon: Briefcase },
   ];
 
   return (

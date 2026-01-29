@@ -197,14 +197,14 @@ const Landing = () => {
                 <div className="text-5xl font-bold mb-2">Demo</div>
                 <p className="text-slate-400">Hackathon MVP</p>
               </div>
-              <Button className="w-full bg-green-600 hover:bg-green-700 text-white" onClick={() => router.push('/employer')}>
-                Try Employer Dashboard
+              <Button className="w-full bg-green-600 hover:bg-green-700 text-white" onClick={() => router.push('/dashboard')}>
+                Try Dashboard
               </Button>
               <Button 
                 className="w-full mt-3 bg-slate-700 hover:bg-slate-600 text-white" 
-                onClick={() => router.push('/employee')}
+                onClick={() => router.push('/dashboard')}
               >
-                Try Employee Dashboard
+                Get Started
               </Button>
             </div>
           </div>
