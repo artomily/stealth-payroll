@@ -1,0 +1,17 @@
+{
+  "name": "Stealth Payroll",
+  "short_name": "StealthPay",
+  "description": "Secure, private payroll management using Solana blockchain",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#22c55e",
+  "icons": [
+    {
+      "src": "/favicon_v2.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
