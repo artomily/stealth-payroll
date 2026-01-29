@@ -98,7 +98,7 @@ const EmployerDashboard = () => {
           </div>
 
           {!connected ? (
-            <Card className="border-dashed">
+            <Card className="border-dashed border-border/50">
               <CardContent className="py-12">
                 <div className="text-center space-y-4">
                   <div className="w-16 h-16 rounded-full bg-muted mx-auto flex items-center justify-center">
@@ -106,67 +106,90 @@ const EmployerDashboard = () => {
                   </div>
                   <h2 className="text-xl font-semibold text-foreground">Connect Your Wallet</h2>
                   <p className="text-muted-foreground max-w-sm mx-auto">
-                    Connect your wallet to manage payroll.
+                    Connect your wallet to create and manage encrypted payroll.
                   </p>
                 </div>
               </CardContent>
             </Card>
           ) : (
             <div className="space-y-6">
+              {/* CREATE PAYROLL BUTTON */}
+              {!isCreating && (
+                <Button 
+                  onClick={() => setIsCreating(true)}
+                  className="bg-primary hover:bg-primary/90"
+                  size="lg"
+                >
+                  <Plus className="w-5 h-5 mr-2" />
+                  Create New Payroll
+                </Button>
+              )}
+
               {/* CREATE PAYROLL FORM */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Plus className="w-5 h-5" />
-                    Create Payroll
-                  </CardTitle>
-                  <CardDescription>
-                    Send encrypted salary to an employee
-                  </CardDescription>
-                </CardHeader>
+              {isCreating && (
+                <Card className="border-border/50">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <Lock className="w-5 h-5 text-primary" />
+                      Create Encrypted Payroll
+                    </CardTitle>
+                    <CardDescription>
+                      Salary data will be encrypted with the employee's public key
+                    </CardDescription>
+                  </CardHeader>
                 <CardContent>
-                  <form onSubmit={handleCreatePayroll} className="space-y-4">
-                    <div className="grid md:grid-cols-2 gap-4">
+                  <form onSubmit={handleCreatePayroll} className="space-y-6">
+                    <div className="space-y-4">
                       <div className="space-y-2">
-                        <Label htmlFor="wallet">Employee Wallet Address</Label>
+                        <Label htmlFor="wallet" className="text-sm font-medium">Employee Wallet Address</Label>
                         <Input
                           id="wallet"
-                          placeholder="Solana address..."
+                          placeholder="e.g., 7x9k...4f3a"
                           value={employeeWallet}
                           onChange={(e) => setEmployeeWallet(e.target.value)}
                           disabled={isSending}
+                          className="bg-background"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="pubkey">Employee Public Key</Label>
+                        <Label htmlFor="pubkey" className="text-sm font-medium">
+                          Employee Public Key
+                          <span className="text-xs text-muted-foreground ml-2">(for encryption)</span>
+                        </Label>
                         <Input
                           id="pubkey"
-                          placeholder="Base64 encoded public key..."
+                          placeholder="MIIBIjANBgkqhkiG9w0BAQE..."
                           value={employeePublicKey}
                           onChange={(e) => setEmployeePublicKey(e.target.value)}
                           disabled={isSending}
+                          className="bg-background font-mono text-xs"
                         />
+                        <p className="text-xs text-primary flex items-center gap-1">
+                          <Lock className="w-3 h-3" />
+                          Used to encrypt salary details
+                        </p>
                       </div>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="amount">Amount</Label>
+                        <Label htmlFor="amount" className="text-sm font-medium">Amount</Label>
                         <Input
                           id="amount"
                           type="number"
-                          placeholder="0.00"
+                          placeholder="5000"
                           value={amount}
                           onChange={(e) => setAmount(e.target.value)}
                           disabled={isSending}
                           step="0.01"
+                          className="bg-background text-lg font-semibold"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="currency">Currency</Label>
+                        <Label htmlFor="currency" className="text-sm font-medium">Currency</Label>
                         <select 
                           id="currency"
-                          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm h-10"
                           value={currency}
                           onChange={(e) => setCurrency(e.target.value)}
                           disabled={isSending}
@@ -177,23 +200,24 @@ const EmployerDashboard = () => {
                         </select>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="period">Period</Label>
+                        <Label htmlFor="period" className="text-sm font-medium">Pay Period</Label>
                         <Input
                           id="period"
-                          placeholder="e.g., January 2024"
+                          placeholder="January 2026"
                           value={period}
                           onChange={(e) => setPeriod(e.target.value)}
                           disabled={isSending}
+                          className="bg-background"
                         />
                       </div>
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="notes">Notes (Optional)</Label>
+                      <Label htmlFor="notes" className="text-sm font-medium">Notes (Optional)</Label>
                       <textarea
                         id="notes"
-                        placeholder="Add any notes..."
-                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                        placeholder="Additional payment details..."
+                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm resize-none"
                         rows={3}
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
@@ -201,69 +225,101 @@ const EmployerDashboard = () => {
                       />
                     </div>
 
-                    <Button 
-                      type="submit" 
-                      className="w-full"
-                      disabled={isSending}
-                    >
-                      {isSending ? (
-                        <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          <Send className="mr-2 h-4 w-4" />
-                          Send Payroll
-                        </>
-                      )}
-                    </Button>
+                    <div className="rounded-lg bg-primary/10 border border-primary/20 p-4">
+                      <p className="text-sm text-foreground flex items-start gap-2">
+                        <Shield className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                        <span>
+                          The amount and details will be encrypted using the employee's public key. 
+                          Only they can decrypt it with their wallet.
+                        </span>
+                      </p>
+                    </div>
+
+                    <div className="flex gap-3">
+                      <Button 
+                        type="button"
+                        variant="outline"
+                        onClick={() => setIsCreating(false)}
+                        disabled={isSending}
+                        className="flex-1"
+                      >
+                        Cancel
+                      </Button>
+                      <Button 
+                        type="submit" 
+                        className="flex-1 bg-primary hover:bg-primary/90"
+                        disabled={isSending}
+                      >
+                        {isSending ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            <Send className="mr-2 h-4 w-4" />
+                            Send Encrypted Payroll
+                          </>
+                        )}
+                      </Button>
+                    </div>
                   </form>
                 </CardContent>
               </Card>
+              )}
 
               {/* PAYROLL HISTORY */}
-              <Card>
+              <Card className="border-border/50">
                 <CardHeader>
-                  <CardTitle>Payroll History</CardTitle>
+                  <CardTitle className="text-lg">Recent Payroll Transfers</CardTitle>
                   <CardDescription>
-                    All payroll transactions you've created
+                    All encrypted payroll transactions you've sent
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   {employerEntries.length === 0 ? (
-                    <div className="text-center py-8">
-                      <p className="text-muted-foreground">No payroll created yet</p>
+                    <div className="text-center py-12">
+                      <FileText className="w-8 h-8 text-muted-foreground mx-auto mb-3" />
+                      <p className="text-muted-foreground">No payroll sent yet</p>
+                      <p className="text-sm text-muted-foreground mt-1">Create your first encrypted payroll above</p>
                     </div>
                   ) : (
-                    <div className="space-y-4">
+                    <div className="space-y-3">
                       {employerEntries.map((entry) => (
-                        <div key={entry.id} className="p-4 border rounded-lg">
+                        <div key={entry.id} className="p-4 border border-border/50 rounded-lg hover:border-primary/20 transition-colors bg-card/50">
                           <div className="flex items-start justify-between">
-                            <div className="space-y-1">
-                              <p className="font-medium">{formatWalletAddress(entry.employeeWallet)}</p>
-                              <p className="text-sm text-muted-foreground">
-                                {new Date(entry.createdAt).toLocaleDateString()}
-                              </p>
+                            <div className="space-y-2 flex-1">
+                              <div className="flex items-center gap-2">
+                                <User className="w-4 h-4 text-muted-foreground" />
+                                <p className="font-medium text-sm">{formatWalletAddress(entry.employeeWallet)}</p>
+                              </div>
+                              <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                                <span className="flex items-center gap-1">
+                                  <Clock className="w-3 h-3" />
+                                  {new Date(entry.createdAt).toLocaleDateString()}
+                                </span>
+                                <span className="flex items-center gap-1 text-primary">
+                                  <Lock className="w-3 h-3" />
+                                  End-to-end encrypted
+                                </span>
+                              </div>
                             </div>
                             <div className="flex items-center gap-2">
-                              <div className={`px-3 py-1 rounded-full text-sm font-medium ${
-                                entry.status === 'confirmed' 
-                                  ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
-                                  : entry.status === 'failed'
-                                  ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'
-                                  : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100'
-                              }`}>
-                                {entry.status}
-                              </div>
+                              {entry.status === 'confirmed' && (
+                                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
+                                  <CheckCircle2 className="w-3 h-3" />
+                                  Sent
+                                </div>
+                              )}
                               {entry.transaction && (
                                 <a
                                   href={getSolscanUrl(entry.transaction.signature)}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="p-2 hover:bg-muted rounded"
+                                  className="p-1.5 hover:bg-muted rounded transition-colors"
+                                  title="View on Solscan"
                                 >
-                                  <ExternalLink className="w-4 h-4" />
+                                  <ExternalLink className="w-4 h-4 text-muted-foreground" />
                                 </a>
                               )}
                             </div>

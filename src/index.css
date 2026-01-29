@@ -8,7 +8,7 @@
 
 @layer base {
   :root {
-    --background: 222 47% 6%;
+    --background: 222 47% 4%;
     --foreground: 210 40% 98%;
 
     --card: 222 47% 8%;
@@ -17,31 +17,31 @@
     --popover: 222 47% 8%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 142 70% 45%;
+    --primary: 142 76% 36%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 142 50% 35%;
+    --secondary: 142 76% 26%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217 33% 17%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 142 70% 45%;
+    --accent: 217 33% 17%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 33% 20%;
+    --border: 217 33% 17%;
     --input: 217 33% 17%;
-    --ring: 142 70% 45%;
+    --ring: 142 76% 36%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
     /* Custom Stealth Payroll tokens */
-    --stealth-green: 142 70% 45%;
-    --stealth-green-dark: 142 50% 35%;
-    --stealth-glow: 142 70% 45%;
+    --stealth-green: 142 76% 36%;
+    --stealth-green-dark: 142 76% 26%;
+    --stealth-glow: 142 76% 36%;
     
     --gradient-primary: linear-gradient(135deg, hsl(142 70% 45%), hsl(142 50% 35%));
     --gradient-card: linear-gradient(180deg, hsl(222 47% 10%), hsl(222 47% 6%));
@@ -63,7 +63,7 @@
   }
 
   .dark {
-    --background: 222 47% 6%;
+    --background: 222 47% 4%;
     --foreground: 210 40% 98%;
 
     --card: 222 47% 8%;
@@ -72,24 +72,24 @@
     --popover: 222 47% 8%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 142 70% 45%;
+    --primary: 142 76% 36%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 142 50% 35%;
+    --secondary: 142 76% 26%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217 33% 17%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 142 70% 45%;
+    --accent: 217 33% 17%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62% 30%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 33% 20%;
+    --border: 217 33% 17%;
     --input: 217 33% 17%;
-    --ring: 142 70% 45%;
+    --ring: 142 76% 36%;
 
     --sidebar-background: 222 47% 6%;
     --sidebar-foreground: 210 40% 98%;

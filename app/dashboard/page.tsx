@@ -33,28 +33,28 @@ const Dashboard = () => {
   ];
 
   const stats = [
-    { label: 'Total Paid', value: '$12,450.00', change: '+2.4%', icon: <TrendingUp className="w-5 h-5 text-[#14F195]" /> },
-    { label: 'Active Employees', value: '24', change: '+3', icon: <Wallet className="w-5 h-5 text-[#9945FF]" /> },
-    { label: 'Pending Transactions', value: '3', change: '-1', icon: <Send className="w-5 h-5 text-blue-400" /> },
-    { label: 'Security Score', value: '98%', change: 'Excellent', icon: <Shield className="w-5 h-5 text-green-400" /> },
+    { label: 'Total Paid', value: '$12,450.00', change: '+2.4%', icon: <TrendingUp className="w-5 h-5 text-green-500" /> },
+    { label: 'Active Employees', value: '24', change: '+3', icon: <Wallet className="w-5 h-5 text-green-600" /> },
+    { label: 'Pending Transactions', value: '3', change: '-1', icon: <Send className="w-5 h-5 text-green-400" /> },
+    { label: 'Security Score', value: '98%', change: 'Excellent', icon: <Shield className="w-5 h-5 text-green-500" /> },
   ];
 
   return (
     <div className="min-h-screen bg-[#000] text-white font-sans">
       {/* BACKGROUND DECORATION */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#9945FF] opacity-10 blur-[120px] rounded-full"></div>
-        <div className="absolute bottom-[10%] right-[-5%] w-[35%] h-[35%] bg-[#14F195] opacity-10 blur-[120px] rounded-full"></div>
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-green-500 opacity-10 blur-[120px] rounded-full"></div>
+        <div className="absolute bottom-[10%] right-[-5%] w-[35%] h-[35%] bg-green-600 opacity-10 blur-[120px] rounded-full"></div>
       </div>
 
       {/* NAVBAR */}
       <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-tr from-[#9945FF] to-[#14F195] rounded flex items-center justify-center">
+            <div className="w-8 h-8 bg-gradient-to-tr from-green-500 to-green-600 rounded flex items-center justify-center">
               <Shield size={18} className="text-black fill-current" />
             </div>
-            <span className="text-xl font-bold tracking-tighter uppercase italic">Stealth</span>
+            <span className="text-xl font-bold tracking-tighter">Stealth Payroll</span>
           </div>
 
           <div className="hidden md:flex items-center gap-8">
@@ -98,7 +98,7 @@ const Dashboard = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mb-12 relative group"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-[#9945FF] to-[#14F195] rounded-3xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-300 pointer-events-none"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-green-600 rounded-3xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-300 pointer-events-none"></div>
             <div className="relative p-8 md:p-12 rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 hover:border-white/20 transition-all">
               <div className="flex items-start justify-between mb-8">
                 <div>
@@ -118,7 +118,7 @@ const Dashboard = () => {
                 </button>
               </div>
               <div className="flex gap-3">
-                <Button className="bg-[#9945FF] hover:bg-[#9945FF]/80 text-white">
+                <Button className="bg-green-600 hover:bg-green-700 text-white">
                   <Send className="mr-2 w-4 h-4" />
                   Send Payroll
                 </Button>
@@ -161,7 +161,7 @@ const Dashboard = () => {
           >
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-semibold">Recent Transactions</h3>
-              <a href="#" className="text-[#14F195] hover:text-[#14F195]/80 text-sm flex items-center gap-1">
+              <a href="#" className="text-green-500 hover:text-green-600 text-sm flex items-center gap-1">
                 View All <ChevronRight size={16} />
               </a>
             </div>

@@ -66,14 +66,14 @@ const EmployeeDashboard = () => {
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
             <div>
-              <h1 className="text-3xl font-bold text-foreground">Employee Dashboard</h1>
-              <p className="text-muted-foreground">View and decrypt your salary slips</p>
+              <h1 className="text-3xl font-bold tracking-tight text-foreground">Employee Dashboard</h1>
+              <p className="text-muted-foreground">Your encrypted salary slips</p>
             </div>
             <WalletButton role="employee" />
           </div>
 
           {!connected ? (
-            <Card className="border-dashed">
+            <Card className="border-dashed border-border/50">
               <CardContent className="py-12">
                 <div className="text-center space-y-4">
                   <div className="w-16 h-16 rounded-full bg-muted mx-auto flex items-center justify-center">
@@ -89,23 +89,23 @@ const EmployeeDashboard = () => {
           ) : (
             <div className="space-y-6">
               {/* Public Key Card */}
-              <Card className="border-primary/30 bg-gradient-to-r from-primary/5 to-secondary/5">
-                <CardContent className="py-4">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+              <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
+                <CardContent className="py-5">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                      <div className="w-11 h-11 rounded-lg bg-primary/15 flex items-center justify-center flex-shrink-0">
                         <Key className="w-5 h-5 text-primary" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-foreground">Your Public Key</p>
-                        <p className="text-xs text-muted-foreground">Share with employer for encrypted payroll</p>
+                        <p className="text-sm font-semibold text-foreground">Your Public Key</p>
+                        <p className="text-xs text-muted-foreground">Share this with your employer for encrypted payroll</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <code className="text-xs bg-muted px-3 py-2 rounded font-mono text-foreground">
-                        {publicKeyBase64?.slice(0, 20)}...
+                      <code className="text-xs bg-background/50 px-3 py-2 rounded border border-border/50 font-mono text-foreground">
+                        {publicKeyBase64?.slice(0, 24)}...
                       </code>
-                      <Button variant="ghost" size="icon" onClick={copyPublicKey}>
+                      <Button variant="outline" size="sm" onClick={copyPublicKey} className="border-primary/20 hover:bg-primary/10">
                         <Copy className="w-4 h-4" />
                       </Button>
                     </div>
@@ -115,81 +115,117 @@ const EmployeeDashboard = () => {
 
               {/* Salary Slips */}
               <div className="space-y-4">
-                <h2 className="text-xl font-semibold text-foreground">Your Salary Slips</h2>
+                <div>
+                  <h2 className="text-lg font-semibold text-foreground">Salary Slips</h2>
+                  <p className="text-sm text-muted-foreground">All payroll sent to your wallet</p>
+                </div>
                 
                 {employeeEntries.length === 0 ? (
-                  <Card className="border-dashed">
+                  <Card className="border-dashed border-border/50">
                     <CardContent className="py-12">
                       <div className="text-center space-y-3">
-                        <DollarSign className="w-8 h-8 text-muted-foreground mx-auto" />
-                        <p className="text-muted-foreground">No salary slips yet</p>
-                        <p className="text-sm text-muted-foreground">Your employer will send encrypted payroll here</p>
+                        <div className="w-12 h-12 rounded-full bg-muted mx-auto flex items-center justify-center">
+                          <DollarSign className="w-6 h-6 text-muted-foreground" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-foreground">No salary slips yet</p>
+                          <p className="text-sm text-muted-foreground mt-1">Your encrypted payroll will appear here</p>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
                 ) : (
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     {employeeEntries.map((entry) => {
                       const isDecrypted = !!decryptedPayrolls[entry.id];
                       const payrollData = decryptedPayrolls[entry.id];
 
                       return (
-                        <Card key={entry.id}>
-                          <CardContent className="py-4">
+                        <Card key={entry.id} className="border-border/50 hover:border-primary/20 transition-colors">
+                          <CardContent className="py-5">
                             <div className="space-y-4">
                               <div className="flex items-center justify-between">
-                                <div>
-                                  <p className="font-medium">
-                                    From: {formatWalletAddress(entry.employeeWallet)}
-                                  </p>
-                                  <p className="text-sm text-muted-foreground">
-                                    {new Date(entry.createdAt).toLocaleDateString()}
-                                  </p>
+                                <div className="space-y-1">
+                                  <div className="flex items-center gap-2">
+                                    {isDecrypted ? (
+                                      <Unlock className="w-4 h-4 text-primary" />
+                                    ) : (
+                                      <Lock className="w-4 h-4 text-muted-foreground" />
+                                    )}
+                                    <span className="text-sm font-medium">
+                                      {isDecrypted ? 'Decrypted' : 'Encrypted'} Payroll
+                                    </span>
+                                  </div>
+                                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                                    <span>From: {formatWalletAddress(entry.employeeWallet)}</span>
+                                    <span>•</span>
+                                    <span>{new Date(entry.createdAt).toLocaleDateString()}</span>
+                                  </div>
                                 </div>
                                 <div className="flex items-center gap-2">
+                                  {entry.status === 'confirmed' && (
+                                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
+                                      <CheckCircle2 className="w-3 h-3" />
+                                      Confirmed
+                                    </div>
+                                  )}
                                   {entry.transaction && (
                                     <a
                                       href={getSolscanUrl(entry.transaction.signature)}
                                       target="_blank"
                                       rel="noopener noreferrer"
-                                      className="p-2 hover:bg-muted rounded"
+                                      className="p-1.5 hover:bg-muted rounded transition-colors"
+                                      title="View on Solscan"
                                     >
-                                      <ExternalLink className="w-4 h-4" />
+                                      <ExternalLink className="w-4 h-4 text-muted-foreground" />
                                     </a>
-                                  )}
-                                  {entry.status === 'confirmed' && (
-                                    <CheckCircle2 className="w-5 h-5 text-green-500" />
                                   )}
                                 </div>
                               </div>
 
                               {isDecrypted && payrollData ? (
-                                <div className="bg-muted p-4 rounded-lg space-y-2">
-                                  <div className="flex justify-between">
-                                    <span className="text-muted-foreground">Amount:</span>
-                                    <span className="font-medium">{payrollData.amount} {payrollData.currency}</span>
+                                <div className="bg-muted/50 border border-border/50 p-4 rounded-lg space-y-2.5">
+                                  <div className="flex justify-between items-center">
+                                    <span className="text-sm text-muted-foreground">Amount</span>
+                                    <span className="text-2xl font-bold tabular-nums">
+                                      {payrollData.amount.toLocaleString()} {payrollData.currency}
+                                    </span>
                                   </div>
-                                  <div className="flex justify-between">
-                                    <span className="text-muted-foreground">Period:</span>
+                                  <div className="flex justify-between items-center pt-2 border-t border-border/50">
+                                    <span className="text-sm text-muted-foreground">Period</span>
                                     <span className="font-medium">{payrollData.period}</span>
                                   </div>
                                   {payrollData.notes && (
-                                    <div className="flex justify-between">
-                                      <span className="text-muted-foreground">Notes:</span>
-                                      <span className="font-medium">{payrollData.notes}</span>
+                                    <div className="flex justify-between items-start pt-2 border-t border-border/50">
+                                      <span className="text-sm text-muted-foreground">Notes</span>
+                                      <span className="font-medium text-right max-w-xs">{payrollData.notes}</span>
                                     </div>
                                   )}
+                                  <div className="pt-2 border-t border-border/50">
+                                    <p className="text-xs text-primary flex items-center gap-1">
+                                      <CheckCircle2 className="w-3 h-3" />
+                                      Successfully decrypted with your private key
+                                    </p>
+                                  </div>
                                 </div>
                               ) : (
-                                <Button
-                                  variant="outline"
-                                  className="w-full"
-                                  onClick={() => decryptPayrollEntry(entry.id)}
-                                  disabled={!secretKey}
-                                >
-                                  <Unlock className="w-4 h-4 mr-2" />
-                                  Decrypt Salary Details
-                                </Button>
+                                <div className="space-y-3">
+                                  <div className="bg-muted/30 p-4 rounded-lg border border-dashed border-border/50">
+                                    <p className="text-sm text-muted-foreground flex items-center gap-2">
+                                      <Lock className="w-4 h-4" />
+                                      This payroll is encrypted. Only you can decrypt it with your wallet.
+                                    </p>
+                                  </div>
+                                  <Button
+                                    variant="default"
+                                    className="w-full bg-primary hover:bg-primary/90"
+                                    onClick={() => decryptPayrollEntry(entry.id)}
+                                    disabled={!secretKey}
+                                  >
+                                    <Unlock className="w-4 h-4 mr-2" />
+                                    Decrypt with Wallet
+                                  </Button>
+                                </div>
                               )}
                             </div>
                           </CardContent>

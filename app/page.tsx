@@ -41,22 +41,22 @@ const Landing = () => {
 
   const features = [
     {
-      icon: <Shield className="text-[#9945FF]" />,
+      icon: <Shield className="text-green-500" />,
       title: "Asymmetric Encryption",
       description: "Salary data is encrypted with the employee's public key. Only their private key can reveal the contents."
     },
     {
-      icon: <EyeOff className="text-[#14F195]" />,
+      icon: <EyeOff className="text-green-400" />,
       title: "Obfuscated Amounts",
       description: "Block explorers show the transfer, but our stealth layer hides the metadata and breakdown from public view."
     },
     {
-      icon: <Zap className="text-blue-400" />,
+      icon: <Zap className="text-green-600" />,
       title: "Instant Verifiability",
       description: "Smart contracts verify payroll without revealing sensitive details. Full transparency, zero data leaks."
     },
     {
-      icon: <CreditCard className="text-orange-400" />,
+      icon: <CreditCard className="text-green-400" />,
       title: "Flexible Payments",
       description: "Support for various token types and custom payment schedules. Employers maintain full control."
     },
@@ -66,8 +66,8 @@ const Landing = () => {
     <div className="min-h-screen bg-slate-950 text-white overflow-hidden">
       {/* Background Effects */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#9945FF]/20 rounded-full blur-3xl opacity-20"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#14F195]/20 rounded-full blur-3xl opacity-20"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl opacity-30"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-green-600/10 rounded-full blur-3xl opacity-30"></div>
       </div>
 
       {/* Navbar */}
@@ -77,10 +77,10 @@ const Landing = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#9945FF] to-[#14F195] rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
                 <Wallet className="w-6 h-6 text-white" />
               </div>
-              <span className="text-xl font-bold">Private Payroll</span>
+              <span className="text-xl font-bold">Stealth Payroll</span>
             </div>
 
             {/* Desktop Menu */}
@@ -128,19 +128,19 @@ const Landing = () => {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              <span className="bg-gradient-to-r from-[#9945FF] via-[#14F195] to-blue-400 bg-clip-text text-transparent">
-                Private Payroll
+              <span className="bg-gradient-to-r from-green-400 via-green-500 to-green-600 bg-clip-text text-transparent">
+                Stealth Payroll
               </span>
               <br />
-              <span className="text-slate-300">On Solana</span>
+              <span className="text-slate-200">Private by Design</span>
             </h1>
             <p className="text-lg md:text-xl text-slate-400 mb-8 max-w-2xl mx-auto">
-              Confidential salary management with cryptographic privacy. Your payroll, your rules, zero visibility.
+              Zero-knowledge salary management on Solana. End-to-end encrypted payroll that stays private on-chain.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-[#9945FF] to-[#14F195] hover:opacity-90"
+                className="bg-green-600 hover:bg-green-700 text-white"
                 onClick={() => router.push('/dashboard')}
               >
                 Get Started <ArrowRight className="ml-2 w-5 h-5" />
@@ -148,7 +148,7 @@ const Landing = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-slate-700 hover:bg-slate-900"
+                className="border-slate-700 hover:bg-slate-900 text-white"
               >
                 Learn More
               </Button>
@@ -160,7 +160,12 @@ const Landing = () => {
       {/* Features Section */}
       <section className="py-20 relative z-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16">Powered by Cryptography</h2>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">Powered by Cryptography</h2>
+            <p className="text-slate-400 max-w-2xl mx-auto">
+              Built with industry-standard encryption to keep salary data private and secure
+            </p>
+          </div>
           <div className="grid md:grid-cols-2 gap-8">
             {features.map((feature, idx) => (
               <FeatureCard key={idx} {...feature} />
@@ -174,21 +179,32 @@ const Landing = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl font-bold mb-6">Simple, Secure Pricing</h2>
+              <h2 className="text-4xl font-bold mb-6">Built for Hackathons</h2>
+              <p className="text-slate-400 mb-6">
+                This is a demonstration MVP showcasing privacy-first payroll on Solana.
+              </p>
               <ul className="space-y-4">
-                {['Unlimited employees', 'Custom schedules', 'Real-time reporting', 'API access'].map((item) => (
+                {['End-to-end encryption', 'Zero-knowledge proofs', 'On-chain verification', 'Open source'].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-slate-300">
-                    <CheckCircle2 className="text-[#14F195]" />
+                    <CheckCircle2 className="text-green-500 flex-shrink-0" />
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
             <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg p-8 border border-slate-700">
-              <div className="text-5xl font-bold mb-4">$99<span className="text-lg text-slate-400">/mo</span></div>
-              <p className="text-slate-400 mb-6">All features included</p>
-              <Button className="w-full bg-gradient-to-r from-[#9945FF] to-[#14F195] hover:opacity-90">
-                Start Free Trial
+              <div className="mb-6">
+                <div className="text-5xl font-bold mb-2">Demo</div>
+                <p className="text-slate-400">Hackathon MVP</p>
+              </div>
+              <Button className="w-full bg-green-600 hover:bg-green-700 text-white" onClick={() => router.push('/employer')}>
+                Try Employer Dashboard
+              </Button>
+              <Button 
+                className="w-full mt-3 bg-slate-700 hover:bg-slate-600 text-white" 
+                onClick={() => router.push('/employee')}
+              >
+                Try Employee Dashboard
               </Button>
             </div>
           </div>
