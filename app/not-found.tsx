@@ -22,7 +22,7 @@ export default function NotFound() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-2xl"
+          className="text-center w-full"
         >
           {/* 404 Illustration */}
           <motion.div
@@ -63,7 +63,7 @@ export default function NotFound() {
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Page Not Found
             </h1>
-            <p className="text-lg text-slate-400 mb-8 max-w-md mx-auto">
+            <p className="text-lg text-slate-400 mb-8 w-full">
               The page you're looking for doesn't exist or has been moved to a secure location.
             </p>
           </motion.div>

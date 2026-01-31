@@ -74,7 +74,7 @@ const Landing = () => {
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled ? 'bg-slate-950/80 backdrop-blur-lg border-b border-slate-800' : ''
       }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-10">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
@@ -121,7 +121,7 @@ const Landing = () => {
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 relative z-10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="w-full px-4 sm:px-6 lg:px-10 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -134,7 +134,7 @@ const Landing = () => {
               <br />
               <span className="text-slate-200">Private by Design</span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-400 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-slate-400 mb-8 w-full">
               Zero-knowledge salary management on Solana. End-to-end encrypted payroll that stays private on-chain.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -160,10 +160,10 @@ const Landing = () => {
 
       {/* Features Section */}
       <section className="py-20 relative z-10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Powered by Cryptography</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">
+            <p className="text-slate-400 w-full">
               Built with industry-standard encryption to keep salary data private and secure
             </p>
           </div>
@@ -177,10 +177,10 @@ const Landing = () => {
 
       {/* Tech Stack Section */}
       <section className="py-20 relative z-10 bg-slate-900/50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Built with Modern Tech</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">
+            <p className="text-slate-400 w-full">
               Leveraging cutting-edge blockchain and cryptography technologies
             </p>
           </div>
@@ -265,7 +265,7 @@ const Landing = () => {
 
       {/* Pricing Section */}
       <section className="py-20 relative z-10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold mb-6">Built for Hackathons</h2>
@@ -302,7 +302,7 @@ const Landing = () => {
 
       {/* Footer */}
       <footer className="border-t border-slate-800 py-12 relative z-10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-10">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <h3 className="font-bold mb-4">Product</h3>
