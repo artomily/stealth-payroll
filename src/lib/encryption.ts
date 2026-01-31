@@ -8,7 +8,7 @@ export interface EncryptedPayload {
 }
 
 export interface PayrollData {
-  employeeWallet: string;
+  recipientWallet: string;
   amount: number;
   currency: string;
   period: string;

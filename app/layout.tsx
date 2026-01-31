@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   title: "Stealth Payroll",
   description: "Secure, private payroll management using Solana blockchain and end-to-end encryption",
   icons: {
-    icon: "/favicon_v2.svg",
-    shortcut: "/favicon_v2.svg",
-    apple: "/favicon_v2.svg",
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
   },
   manifest: "/manifest.json",
 };

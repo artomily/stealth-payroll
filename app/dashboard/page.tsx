@@ -48,22 +48,22 @@ const Dashboard = () => {
   const [isSending, setIsSending] = useState(false);
   const [decryptedPayrolls, setDecryptedPayrolls] = useState<Record<string, PayrollData>>({});
   
-  // Form state for employer
-  const [employeeWallet, setEmployeeWallet] = useState('');
-  const [employeePublicKey, setEmployeePublicKey] = useState('');
+  // Form state for sender
+  const [recipientWallet, setRecipientWallet] = useState('');
+  const [recipientPublicKey, setRecipientPublicKey] = useState('');
   const [amount, setAmount] = useState('');
   const [currency, setCurrency] = useState('USDC');
   const [period, setPeriod] = useState('');
   const [notes, setNotes] = useState('');
 
   // Get role-specific entries
-  const employerEntries = entries.filter(e => e.transaction?.from === address);
-  const employeeEntries = entries.filter(e => e.employeeWallet === address);
+  const senderEntries = entries.filter(e => e.transaction?.from === address);
+  const recipientEntries = entries.filter(e => e.employeeWallet === address);
 
   const handleCreatePayroll = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!address || !employeeWallet || !employeePublicKey || !amount || !period) {
+    if (!address || !recipientWallet || !recipientPublicKey || !amount || !period) {
       toast.error('Please fill in all required fields');
       return;
     }
@@ -72,8 +72,8 @@ const Dashboard = () => {
     try {
       await createPayrollEntry(
         address,
-        employeeWallet,
-        employeePublicKey,
+        recipientWallet,
+        recipientPublicKey,
         {
           amount: parseFloat(amount),
           currency,
@@ -87,8 +87,8 @@ const Dashboard = () => {
       });
       
       // Reset form
-      setEmployeeWallet('');
-      setEmployeePublicKey('');
+      setRecipientWallet('');
+      setRecipientPublicKey('');
       setAmount('');
       setPeriod('');
       setNotes('');
@@ -106,13 +106,13 @@ const Dashboard = () => {
     if (publicKeyBase64) {
       navigator.clipboard.writeText(publicKeyBase64);
       toast.success('Public key copied!', {
-        description: 'Share this with your employer for encrypted payroll.',
+        description: 'Share this with your organization for encrypted payroll.',
       });
     }
   };
 
   const decryptPayrollEntry = (entryId: string) => {
-    const entry = employeeEntries.find(e => e.id === entryId);
+    const entry = recipientEntries.find(e => e.id === entryId);
     if (!entry || !secretKey) return;
 
     try {
@@ -129,14 +129,14 @@ const Dashboard = () => {
     }
   };
 
-  const stats = role === 'employer' ? [
+  const stats = role === 'sender' ? [
     { label: 'Total Paid', value: '$12,450.00', change: '+2.4%', icon: <TrendingUp className="w-5 h-5 text-green-500" /> },
-    { label: 'Active Employees', value: '24', change: '+3', icon: <User className="w-5 h-5 text-green-600" /> },
+    { label: 'Active Recipients', value: '24', change: '+3', icon: <User className="w-5 h-5 text-green-600" /> },
     { label: 'Pending Transactions', value: '3', change: '-1', icon: <Send className="w-5 h-5 text-green-400" /> },
     { label: 'Security Score', value: '98%', change: 'Excellent', icon: <Shield className="w-5 h-5 text-green-500" /> },
   ] : [
     { label: 'Salary Received', value: '$8,500.00', change: 'This month', icon: <DollarSign className="w-5 h-5 text-green-500" /> },
-    { label: 'Encrypted Slips', value: employeeEntries.length.toString(), change: 'Total', icon: <Lock className="w-5 h-5 text-green-600" /> },
+    { label: 'Encrypted Slips', value: recipientEntries.length.toString(), change: 'Total', icon: <Lock className="w-5 h-5 text-green-600" /> },
     { label: 'Decrypted', value: Object.keys(decryptedPayrolls).length.toString(), change: 'Available', icon: <Unlock className="w-5 h-5 text-green-400" /> },
     { label: 'Privacy Score', value: '100%', change: 'Maximum', icon: <Shield className="w-5 h-5 text-green-500" /> },
   ];
@@ -163,7 +163,7 @@ const Dashboard = () => {
             <span className="text-slate-400">Dashboard</span>
             {connected && role && (
               <div className="flex items-center gap-2 px-3 py-1 bg-green-500/20 rounded-full">
-                {role === 'employer' ? <Briefcase size={16} /> : <User size={16} />}
+                {role === 'sender' ? <Briefcase size={16} /> : <User size={16} />}
                 <span className="text-sm text-green-400 capitalize">{role}</span>
               </div>
             )}
@@ -187,19 +187,19 @@ const Dashboard = () => {
             ) : (
               <div className="flex gap-2">
                 <Button 
-                  onClick={() => connect('employer')}
+                  onClick={() => connect('sender')}
                   className="bg-green-600 hover:bg-green-700 text-sm"
                 >
                   <Briefcase className="w-4 h-4 mr-2" />
-                  Connect as Employer
+                  Connect as Sender
                 </Button>
                 <Button 
-                  onClick={() => connect('employee')}
+                  onClick={() => connect('recipient')}
                   variant="outline"
                   className="border-green-600/20 text-green-400 hover:bg-green-600/10 text-sm"
                 >
                   <User className="w-4 h-4 mr-2" />
-                  Connect as Employee
+                  Connect as Recipient
                 </Button>
               </div>
             )}
@@ -218,13 +218,13 @@ const Dashboard = () => {
           >
             <h1 className="text-4xl font-black mb-2 tracking-tight">
               {!connected ? 'Welcome to Stealth Payroll! 👋' : 
-               role === 'employer' ? 'Employer Dashboard 💼' : 
-               'Your Salary Dashboard 💰'}
+               role === 'sender' ? 'Payment Sender Dashboard 💼' : 
+               'Your Payment Dashboard 💰'}
             </h1>
             <p className="text-slate-400">
               {!connected ? 'Connect your wallet to get started with encrypted payroll' :
-               role === 'employer' ? 'Manage encrypted payroll for your employees' :
-               'View and decrypt your encrypted salary slips'}
+               role === 'sender' ? 'Manage encrypted payroll for your recipients' :
+               'View and decrypt your encrypted payment slips'}
             </p>
           </motion.div>
 
@@ -243,26 +243,26 @@ const Dashboard = () => {
                   <div>
                     <h2 className="text-2xl font-bold text-foreground mb-3">Choose Your Role</h2>
                     <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-                      Connect as an employer to send encrypted payroll, or as an employee to receive and decrypt salary payments.
+                      Connect as a sender to send encrypted payroll, or as a recipient to receive and decrypt salary payments.
                     </p>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
                     <Button 
-                      onClick={() => connect('employer')}
+                      onClick={() => connect('sender')}
                       className="bg-green-600 hover:bg-green-700 flex-1"
                       size="lg"
                     >
                       <Briefcase className="w-5 h-5 mr-2" />
-                      I'm an Employer
+                      I'm a Sender
                     </Button>
                     <Button 
-                      onClick={() => connect('employee')}
+                      onClick={() => connect('recipient')}
                       variant="outline"
                       className="border-green-600/30 text-green-400 hover:bg-green-600/10 flex-1"
                       size="lg"
                     >
                       <User className="w-5 h-5 mr-2" />
-                      I'm an Employee
+                      I'm a Recipient
                     </Button>
                   </div>
                 </div>
@@ -279,7 +279,7 @@ const Dashboard = () => {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-green-600 rounded-3xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-300 pointer-events-none"></div>
                 <div className="relative p-8 md:p-12 rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 hover:border-white/20 transition-all">
-                  {role === 'employer' ? (
+                  {role === 'sender' ? (
                     <div>
                       <div className="flex items-start justify-between mb-8">
                         <div>
@@ -329,7 +329,7 @@ const Dashboard = () => {
                               <Key className="w-5 h-5 text-green-500" />
                               <div>
                                 <p className="text-sm font-semibold text-white">Your Public Key</p>
-                                <p className="text-xs text-slate-400">Share with employer</p>
+                                <p className="text-xs text-slate-400">Share with organization</p>
                               </div>
                             </div>
                             <div className="flex items-center gap-2">
@@ -359,8 +359,8 @@ const Dashboard = () => {
                 </div>
               </motion.div>
 
-              {/* EMPLOYER CREATE PAYROLL FORM */}
-              {role === 'employer' && isCreating && (
+              {/* SENDER CREATE PAYROLL FORM */}
+              {role === 'sender' && isCreating && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -374,33 +374,33 @@ const Dashboard = () => {
                         Create Encrypted Payroll
                       </CardTitle>
                       <CardDescription>
-                        Salary data will be encrypted with the employee's public key
+                        Salary data will be encrypted with the recipient's public key
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <form onSubmit={handleCreatePayroll} className="space-y-6">
                         <div className="space-y-4">
                           <div className="space-y-2">
-                            <Label htmlFor="wallet" className="text-sm font-medium">Employee Wallet Address</Label>
+                            <Label htmlFor="wallet" className="text-sm font-medium">Recipient Wallet Address</Label>
                             <Input
                               id="wallet"
                               placeholder="e.g., 7x9k...4f3a"
-                              value={employeeWallet}
-                              onChange={(e) => setEmployeeWallet(e.target.value)}
+                              value={recipientWallet}
+                              onChange={(e) => setRecipientWallet(e.target.value)}
                               disabled={isSending}
                               className="bg-black/20"
                             />
                           </div>
                           <div className="space-y-2">
                             <Label htmlFor="pubkey" className="text-sm font-medium">
-                              Employee Public Key
+                              Recipient Public Key
                               <span className="text-xs text-muted-foreground ml-2">(for encryption)</span>
                             </Label>
                             <Input
                               id="pubkey"
                               placeholder="MIIBIjANBgkqhkiG9w0BAQE..."
-                              value={employeePublicKey}
-                              onChange={(e) => setEmployeePublicKey(e.target.value)}
+                              value={recipientPublicKey}
+                              onChange={(e) => setRecipientPublicKey(e.target.value)}
                               disabled={isSending}
                               className="bg-black/20 font-mono text-xs"
                             />
@@ -469,7 +469,7 @@ const Dashboard = () => {
                           <p className="text-sm text-white flex items-start gap-2">
                             <Shield className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
                             <span>
-                              The amount and details will be encrypted using the employee's public key. 
+                              The amount and details will be encrypted using the recipient's public key. 
                               Only they can decrypt it with their wallet.
                             </span>
                           </p>
@@ -544,13 +544,13 @@ const Dashboard = () => {
                 </div>
                 <div className="space-y-4">
                   {/* Replace 'transactions' with the correct data source if needed */}
-                  {(role === 'employer' ? employerEntries : employeeEntries).map((tx) => {
+                  {(role === 'sender' ? senderEntries : recipientEntries).map((tx) => {
                     // Determine direction for icon and color
-                    const isSent = role === 'employer';
+                    const isSent = role === 'sender';
                     // Amount: prefer decrypted, else transaction
                     let amount = tx.transaction?.amount;
                     let period = undefined;
-                    if (role === 'employee' && decryptedPayrolls[tx.id]) {
+                    if (role === 'recipient' && decryptedPayrolls[tx.id]) {
                       amount = decryptedPayrolls[tx.id].amount;
                       period = decryptedPayrolls[tx.id].period;
                     }

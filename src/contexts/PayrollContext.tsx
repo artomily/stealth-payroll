@@ -3,24 +3,25 @@ import { EncryptedPayload, PayrollData, encryptPayroll, base64ToPublicKey } from
 import { MockTransaction, sendPayrollTransaction } from '@/lib/solana-mock';
 
 export interface PayrollEntry {
+  employeeWallet: string | null;
   id: string;
   encryptedPayload: EncryptedPayload;
   transaction: MockTransaction | null;
   createdAt: number;
-  employeeWallet: string;
-  employeePublicKey: string;
+  recipientWallet: string;
+  recipientPublicKey: string;
   status: 'pending' | 'sending' | 'confirmed' | 'failed';
 }
 
 interface PayrollContextType {
   entries: PayrollEntry[];
   createPayrollEntry: (
-    employerAddress: string,
-    employeeWallet: string,
-    employeePublicKey: string,
-    data: Omit<PayrollData, 'employeeWallet' | 'timestamp'>
+    senderAddress: string,
+    recipientWallet: string,
+    recipientPublicKey: string,
+    data: Omit<PayrollData, 'recipientWallet' | 'timestamp'>
   ) => Promise<PayrollEntry>;
-  getEntriesForEmployee: (wallet: string) => PayrollEntry[];
+  getEntriesForRecipient: (wallet: string) => PayrollEntry[];
 }
 
 const PayrollContext = createContext<PayrollContextType | undefined>(undefined);
@@ -29,19 +30,19 @@ export function PayrollProvider({ children }: { children: ReactNode }) {
   const [entries, setEntries] = useState<PayrollEntry[]>([]);
 
   const createPayrollEntry = useCallback(async (
-    employerAddress: string,
-    employeeWallet: string,
-    employeePublicKey: string,
-    data: Omit<PayrollData, 'employeeWallet' | 'timestamp'>
+    senderAddress: string,
+    recipientWallet: string,
+    recipientPublicKey: string,
+    data: Omit<PayrollData, 'recipientWallet' | 'timestamp'>
   ): Promise<PayrollEntry> => {
     const payrollData: PayrollData = {
       ...data,
-      employeeWallet,
+      recipientWallet,
       timestamp: Date.now(),
     };
 
     // Encrypt the payroll data
-    const publicKey = base64ToPublicKey(employeePublicKey);
+    const publicKey = base64ToPublicKey(recipientPublicKey);
     const encryptedPayload = encryptPayroll(payrollData, publicKey);
 
     const entry: PayrollEntry = {
@@ -49,8 +50,8 @@ export function PayrollProvider({ children }: { children: ReactNode }) {
       encryptedPayload,
       transaction: null,
       createdAt: Date.now(),
-      employeeWallet,
-      employeePublicKey,
+      recipientWallet,
+      recipientPublicKey,
       status: 'sending',
     };
 
@@ -59,8 +60,8 @@ export function PayrollProvider({ children }: { children: ReactNode }) {
     try {
       // Send the mock transaction
       const transaction = await sendPayrollTransaction(
-        employerAddress,
-        employeeWallet,
+        senderAddress,
+        recipientWallet,
         JSON.stringify(encryptedPayload)
       );
 
@@ -82,12 +83,12 @@ export function PayrollProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const getEntriesForEmployee = useCallback((wallet: string): PayrollEntry[] => {
-    return entries.filter(e => e.employeeWallet === wallet);
+  const getEntriesForRecipient = useCallback((wallet: string): PayrollEntry[] => {
+    return entries.filter(e => e.recipientWallet === wallet);
   }, [entries]);
 
   return (
-    <PayrollContext.Provider value={{ entries, createPayrollEntry, getEntriesForEmployee }}>
+    <PayrollContext.Provider value={{ entries, createPayrollEntry, getEntriesForRecipient }}>
       {children}
     </PayrollContext.Provider>
   );

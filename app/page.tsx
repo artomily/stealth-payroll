@@ -43,7 +43,7 @@ const Landing = () => {
     {
       icon: <Shield className="text-green-500" />,
       title: "Asymmetric Encryption",
-      description: "Salary data is encrypted with the employee's public key. Only their private key can reveal the contents."
+      description: "Salary data is encrypted with the recipient's public key. Only their private key can reveal the contents."
     },
     {
       icon: <EyeOff className="text-green-400" />,
@@ -58,7 +58,7 @@ const Landing = () => {
     {
       icon: <CreditCard className="text-green-400" />,
       title: "Flexible Payments",
-      description: "Support for various token types and custom payment schedules. Employers maintain full control."
+      description: "Support for various token types and custom payment schedules. Organizations maintain full control."
     },
   ];
 

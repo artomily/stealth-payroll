@@ -3,7 +3,7 @@ import { generateKeyPair, publicKeyToBase64 } from '@/lib/encryption';
 import { generateMockWallet } from '@/lib/solana-mock';
 
 export type WalletMode = 'mock' | 'devnet';
-export type UserRole = 'employer' | 'employee' | null;
+export type UserRole = 'sender' | 'recipient' | null;
 
 interface WalletState {
   connected: boolean;
