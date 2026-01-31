@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Shield,
   Lock,
@@ -49,6 +50,7 @@ import { toast } from "sonner";
 import { Sidebar } from "@/components/Sidebar";
 
 const Dashboard = () => {
+  const router = useRouter();
   const {
     connected,
     address,
@@ -66,11 +68,17 @@ const Dashboard = () => {
     Record<string, PayrollData>
   >({});
 
+  useEffect(() => {
+    if (!connected) {
+      router.replace("/connect");
+    }
+  }, [connected, router]);
+
   // Form state for sender
   const [recipientWallet, setRecipientWallet] = useState("");
   const [recipientPublicKey, setRecipientPublicKey] = useState("");
   const [amount, setAmount] = useState("");
-  const [currency, setCurrency] = useState("USDC");
+  const [currency, setCurrency] = useState("USDC-SPL");
   const [period, setPeriod] = useState("");
   const [notes, setNotes] = useState("");
 
@@ -363,7 +371,7 @@ const Dashboard = () => {
                               <h2 className="text-5xl font-black">
                                 {showBalance ? "$24,850.50" : "••••••"}
                               </h2>
-                              <span className="text-slate-400">USDC</span>
+                              <span className="text-slate-400">USDC-SPL</span>
                             </div>
                           </div>
                           <button
@@ -404,7 +412,7 @@ const Dashboard = () => {
                             <h2 className="text-5xl font-black">
                               {showBalance ? "$5,000.00" : "••••••"}
                             </h2>
-                            <span className="text-slate-400">USDC</span>
+                            <span className="text-slate-400">USDC-SPL</span>
                           </div>
                           {/* Public Key Display */}
                           <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
@@ -554,9 +562,9 @@ const Dashboard = () => {
                                 onChange={(e) => setCurrency(e.target.value)}
                                 disabled={isSending}
                               >
-                                <option>USDC</option>
+                                <option>USDC-SPL</option>
                                 <option>SOL</option>
-                                <option>USDT</option>
+                                <option>USDT-SPL</option>
                               </select>
                             </div>
                             <div className="space-y-2">

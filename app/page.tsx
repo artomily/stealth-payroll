@@ -135,7 +135,7 @@ const Landing = () => {
               <span className="text-slate-200">Private by Design</span>
             </h1>
             <p className="text-lg md:text-xl text-slate-400 mb-8 w-full">
-              Zero-knowledge salary management on Solana. End-to-end encrypted payroll that stays private on-chain.
+              Zero-knowledge salary management on Solana. End-to-end encrypted payroll with SPL tokens on-chain.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -197,9 +197,9 @@ const Landing = () => {
                   <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.508 7.588c1.046.487 1.757 1.597 1.757 2.872 0 1.762-1.428 3.19-3.19 3.19h-2.023v3.562H10.78V7.588h4.672z"/>
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-2">Solana Blockchain</h3>
+              <h3 className="text-xl font-bold mb-2">Built on Solana</h3>
               <p className="text-slate-400 text-sm mb-4">
-                Fast, secure, and scalable blockchain for on-chain verification and instant transactions
+                Native SPL token support (USDC-SPL, SOL) with fast, low-cost transactions. Connect with Phantom or Solflare.
               </p>
               <div className="flex flex-wrap gap-2">
                 <span className="text-xs px-2 py-1 bg-purple-500/20 text-purple-300 rounded">Web3.js</span>
@@ -268,12 +268,13 @@ const Landing = () => {
         <div className="w-full px-4 sm:px-6 lg:px-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl font-bold mb-6">Built for Hackathons</h2>
+              <h2 className="text-4xl font-bold mb-6">Built for Solana Web3 Hackathon</h2>
               <p className="text-slate-400 mb-6">
-                This is a demonstration MVP showcasing privacy-first payroll on Solana.
+                This is a Solana Web3 hackathon project showcasing privacy-first payroll with zero-knowledge proofs on Solana blockchain.
+                Built with Next.js, TypeScript, and SPL tokens.
               </p>
               <ul className="space-y-4">
-                {['End-to-end encryption', 'Zero-knowledge proofs', 'On-chain verification', 'Open source'].map((item) => (
+                {['End-to-end encryption', 'Zero-knowledge proofs', 'SPL token support', 'Phantom wallet integration'].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-slate-300">
                     <CheckCircle2 className="text-green-500 flex-shrink-0" />
                     {item}

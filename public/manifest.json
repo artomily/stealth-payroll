@@ -1,7 +1,7 @@
 {
   "name": "Stealth Payroll",
   "short_name": "StealthPay",
-  "description": "Secure, private payroll management using Solana blockchain",
+  "description": "Privacy-first payroll dApp on Solana blockchain with zero-knowledge proofs",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",

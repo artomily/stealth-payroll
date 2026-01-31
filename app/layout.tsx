@@ -6,8 +6,8 @@ import Providers from "@/app/providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Stealth Payroll",
-  description: "Secure, private payroll management using Solana blockchain and end-to-end encryption",
+  title: "Stealth Payroll - Solana Web3 Hackathon",
+  description: "Privacy-first payroll dApp on Solana. Zero-knowledge salary management with SPL tokens and Phantom wallet integration.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

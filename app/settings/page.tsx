@@ -145,7 +145,7 @@ export default function SettingsPage() {
                           <Coins size={16} />
                         </div>
                         <div>
-                          <p className="text-sm font-medium">USDC Spending Cap</p>
+                          <p className="text-sm font-medium">USDC-SPL Spending Cap</p>
                           <p className="text-xs text-[#9db9b0]">Unlimited</p>
                         </div>
                       </div>
@@ -158,7 +158,7 @@ export default function SettingsPage() {
                         </div>
                         <div>
                           <p className="text-sm font-medium">Payroll Batch Signing</p>
-                          <p className="text-xs text-[#9db9b0]">Auto-sign &lt; 1000 USDC</p>
+                          <p className="text-xs text-[#9db9b0]">Auto-sign &lt; 1000 USDC-SPL</p>
                         </div>
                       </div>
                       <button className="text-xs font-bold text-[#9db9b0] hover:text-white underline decoration-dashed">Revoke</button>
@@ -194,9 +194,9 @@ export default function SettingsPage() {
                     <div>
                       <h4 className="font-bold mb-3">Preferred Currency</h4>
                       <div className="flex bg-[#111816] p-1 rounded border border-[#283933]">
-                        <button className="flex-1 py-1.5 px-3 rounded bg-[#1c2723] text-white text-xs font-bold border border-[#283933]/50">USDC</button>
-                        <button className="flex-1 py-1.5 px-3 rounded text-[#9db9b0] hover:text-white text-xs font-medium">USDT</button>
-                        <button className="flex-1 py-1.5 px-3 rounded text-[#9db9b0] hover:text-white text-xs font-medium">ETH</button>
+                        <button className="flex-1 py-1.5 px-3 rounded bg-[#1c2723] text-white text-xs font-bold border border-[#283933]/50">USDC-SPL</button>
+                        <button className="flex-1 py-1.5 px-3 rounded text-[#9db9b0] hover:text-white text-xs font-medium">SOL</button>
+                        <button className="flex-1 py-1.5 px-3 rounded text-[#9db9b0] hover:text-white text-xs font-medium">USDT-SPL</button>
                       </div>
                     </div>
                   </CardContent>

@@ -1,15 +1,16 @@
-# Private Payroll
+# Private Payroll - Solana Web3 Hackathon
 
-A private payroll application built with Next.js, TypeScript, and modern web technologies. Secure payroll management with encrypted data handling and Solana blockchain support.
+A privacy-first payroll dApp built for Solana blockchain using Next.js, TypeScript, and zero-knowledge proofs. Secure, encrypted payroll management with full Solana integration.
 
 ## Overview
 
-Private Payroll is a payroll management system that allows employers to securely send encrypted salary information to employees on the Solana blockchain. Key features include:
+Private Payroll is a decentralized payroll management system built on Solana that allows employers to securely send encrypted salary information to employees on-chain. Built for the Solana Web3 hackathon, key features include:
 
 - **Asymmetric Encryption**: Salary data encrypted with employee's public key
-- **Obfuscated Amounts**: Block explorers can't see payment breakdowns
+- **Zero-Knowledge Proofs**: Obfuscated amounts - block explorers can't see payment breakdowns
+- **Solana Native**: Built with SPL tokens (USDC-SPL, SOL, USDT-SPL)
 - **Instant Verifiability**: Smart contracts verify payroll without revealing sensitive data
-- **Flexible Payments**: Support for various tokens and custom schedules
+- **Phantom Wallet Integration**: Seamless connection with popular Solana wallets
 
 ## Getting Started
 
@@ -64,14 +65,14 @@ npm run lint
 - **Next.js 15+** - React framework with built-in routing
 - **TypeScript** - Type-safe JavaScript
 - **React 18+** - UI framework
+- **Solana Web3.js** - Solana blockchain integration
+- **SPL Token** - Solana token standard (USDC-SPL, SOL)
+- **Phantom/Solflare** - Solana wallet integration
 - **Tailwind CSS** - Utility-first CSS framework
 - **shadcn/ui** - High-quality React components
 - **Framer Motion** - Animation library
-- **React Hook Form** - Form management
-- **TanStack Query** - Server state management
+- **NaCl.js** - Zero-knowledge cryptographic functions
 - **Sonner** - Toast notifications
-- **Solana** - Blockchain integration
-- **NaCl.js** - Cryptographic functions
 
 ## Project Structure
 
