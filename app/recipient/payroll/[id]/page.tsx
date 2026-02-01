@@ -123,11 +123,17 @@ const PayrollDetailPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b1110]">
-      <div className="flex min-h-screen">
+    <div className="min-h-screen bg-[#000] text-white font-sans">
+      {/* BACKGROUND DECORATION */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-green-500 opacity-10 blur-[120px] rounded-full"></div>
+        <div className="absolute bottom-[10%] right-[-5%] w-[35%] h-[35%] bg-green-600 opacity-10 blur-[120px] rounded-full"></div>
+      </div>
+
+      <div className="relative z-10 flex">
         <Sidebar />
-        <main className="flex-1 bg-[#0b1110] text-white">
-          <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-10">
+        <main className="flex-1 px-6 py-12 lg:py-14">
+          <div className="flex flex-col gap-8">
             {/* Breadcrumbs */}
             <nav className="flex flex-wrap gap-2 text-sm text-[#9db9b0]">
               <Link href="/dashboard" className="hover:text-[#2bee6c] transition-colors">

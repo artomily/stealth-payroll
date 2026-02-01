@@ -8,22 +8,29 @@ import {
   History,
   Users,
   Settings,
-  Shield,
   ShieldCheck,
-  Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useWallet } from "@/contexts/WalletContext";
 
-const navItems = [
-  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { label: "History", href: "/dashboard", icon: History },
-  { label: "Recipients", href: "/dashboard", icon: Users },
-  { label: "Settings", href: "/settings", icon: Settings },
-  { label: "Audit Logs", href: "/dashboard", icon: Shield },
+const senderNavItems = [
+  { label: "Dashboard", href: "/sender/dashboard", icon: LayoutDashboard },
+  { label: "History", href: "/sender/history", icon: History },
+  { label: "Recipients", href: "/sender/recipients", icon: Users },
+  { label: "Settings", href: "/sender/settings", icon: Settings },
+];
+
+const recipientNavItems = [
+  { label: "Dashboard", href: "/recipient/dashboard", icon: LayoutDashboard },
+  { label: "History", href: "/recipient/history", icon: History },
+  { label: "Settings", href: "/recipient/settings", icon: Settings },
 ];
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { role } = useWallet();
+  
+  const navItems = role === "sender" ? senderNavItems : recipientNavItems;
 
   return (
     <aside className="hidden lg:flex flex-col w-64 border-r border-[#283933] bg-[#111816] pt-6 pb-6">
@@ -58,23 +65,6 @@ export function Sidebar() {
           );
         })}
       </nav>
-
-      <div className="mt-auto px-4 pt-6">
-        <div className="p-4 rounded bg-[#1c2723] border border-[#283933]">
-          <p className="text-xs text-[#9db9b0] mb-2">Current Plan</p>
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-bold text-white">Pro Privacy</span>
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#2bee6c]/20 text-[#2bee6c] font-bold">Active</span>
-          </div>
-          <div className="w-full bg-[#111816] rounded-full h-1.5 mb-2">
-            <div className="bg-[#2bee6c] h-1.5 rounded-full" style={{ width: "75%" }}></div>
-          </div>
-          <div className="text-[10px] text-[#9db9b0] flex items-center gap-1">
-            <Sparkles size={12} />
-            <span>75% of ZK-proof limit used</span>
-          </div>
-        </div>
-      </div>
     </aside>
   );
 }

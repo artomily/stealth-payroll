@@ -59,7 +59,9 @@ export default function ConnectPage() {
     try {
       await connect(selectedRole);
       toast.success(`Connected as ${selectedRole}`);
-      router.replace("/dashboard");
+      // Route to role-specific dashboard
+      const dashboardPath = selectedRole === "sender" ? "/sender/dashboard" : "/recipient/dashboard";
+      router.replace(dashboardPath);
     } catch (error) {
       toast.error("Unable to connect right now");
     } finally {
@@ -184,7 +186,7 @@ export default function ConnectPage() {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[15px] font-semibold text-white">{provider.name}</span>
-                    <span className="text-xs text-[#5c7d72]">Connect with {selectedRole}</span>
+                    {/* <span className="text-xs text-[#5c7d72]">Connect with {selectedRole}</span> */}
                   </div>
                 </div>
                 <div className="flex items-center gap-3 relative z-10 text-xs text-[#9db9b0]">

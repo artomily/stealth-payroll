@@ -52,6 +52,7 @@ export function PayrollProvider({ children }: { children: ReactNode }) {
       createdAt: Date.now(),
       recipientWallet,
       recipientPublicKey,
+      employeeWallet: null,
       status: 'sending',
     };
 
