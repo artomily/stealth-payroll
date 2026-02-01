@@ -102,7 +102,7 @@ export default function RecipientHistoryPage() {
                 <p className="text-3xl font-bold">
                   {showAmounts ? `$${totalReceived.toFixed(2)}` : "••••••"}
                 </p>
-                <p className="text-xs text-[#5c7d72] mt-2">USDC-SPL</p>
+                <p className="text-xs text-[#5c7d72] mt-2">USDC</p>
               </div>
 
               <div className="p-6 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10">

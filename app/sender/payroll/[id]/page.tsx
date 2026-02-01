@@ -52,7 +52,7 @@ const PayrollDetailPage = () => {
     id: batchId,
     processedAt: "Oct 24, 2023 14:02 UTC",
     totalPaid: 45200.0,
-    currency: "USDC-SPL",
+    currency: "USDC",
     status: "Settled",
     recipientCount: 24,
     gasUsed: "0.000025 SOL",

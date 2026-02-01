@@ -166,7 +166,7 @@ const RecipientDashboard = () => {
                         <h2 className="text-5xl font-black">
                           {showBalance ? "$5,750.00" : "••••••"}
                         </h2>
-                        <span className="text-slate-400">USDC-SPL</span>
+                        <span className="text-slate-400">USDC</span>
                       </div>
                     </div>
                     <button

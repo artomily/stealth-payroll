@@ -59,7 +59,7 @@ const SenderDashboard = () => {
   const [recipientWallet, setRecipientWallet] = useState("");
   const [recipientPublicKey, setRecipientPublicKey] = useState("");
   const [amount, setAmount] = useState("");
-  const [currency, setCurrency] = useState("USDC-SPL");
+  const [currency, setCurrency] = useState("USDC");
   const [period, setPeriod] = useState("");
   const [notes, setNotes] = useState("");
 
@@ -208,7 +208,7 @@ const SenderDashboard = () => {
                         <h2 className="text-5xl font-black">
                           {showBalance ? "$24,850.50" : "••••••"}
                         </h2>
-                        <span className="text-slate-400">USDC-SPL</span>
+                        <span className="text-slate-400">USDC</span>
                       </div>
                     </div>
                     <button
@@ -318,9 +318,9 @@ const SenderDashboard = () => {
                             onChange={(e) => setCurrency(e.target.value)}
                             disabled={isSending}
                           >
-                            <option>USDC-SPL</option>
+                            <option>USDC</option>
                             <option>SOL</option>
-                            <option>USDT-SPL</option>
+                            <option>USDT</option>
                           </select>
                         </div>
                         <div className="space-y-2">
